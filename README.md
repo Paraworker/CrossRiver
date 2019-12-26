@@ -9,6 +9,15 @@ A simple QT application for The Missionaries and Cannibals Problem
 求出所有的过河方式
 ## 截图
 ![普通模式](./screenshots/1.png)
+
+***
+
 ![娱乐模式](./screenshots/2.png)
+
+***
+
 ![过河失败](./screenshots/3.png)
+
+***
+
 ![过河成功](./screenshots/4.png)
