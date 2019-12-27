@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include<QString>
 #include"crossriver.h"
