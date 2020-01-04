@@ -7,6 +7,7 @@
 #include <QString>
 #include <QMessageBox>
 #include<QPropertyAnimation>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -20,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->ui->btn_restart,SIGNAL(clicked(bool)),this,SLOT(btn_restart_clicked()));
     this->ui->btn_restart->setDisabled(true);
     this->ui->btn_history->setDisabled(true);
-    connect(this->ui->btn_about,SIGNAL(clicked(bool)),SLOT(btn_about_clicked()));
-    connect(this->ui->btn_history,SIGNAL(clicked(bool)),SLOT(btn_history_clicked()));
+    connect(this->ui->btn_about,SIGNAL(clicked(bool)),this,SLOT(btn_about_clicked()));
+    connect(this->ui->btn_history,SIGNAL(clicked(bool)),this,SLOT(btn_history_clicked()));
     move_0 = new QPropertyAnimation(this->ui->boat, "pos");     //从左往右移动动画
     move_0->setDuration(900);
     move_0->setStartValue(QPoint(200, 110));
@@ -55,8 +56,8 @@ void MainWindow::btn_start_clicked()
     {
         this->ui->listWidget->addItem("第"+QString::number(i+1)+"种方案");
         std::vector<Cross>::iterator itr1,itr2;
-        itr1=answer[i].begin();
-        itr2=answer[i].end();
+        itr1=answer[(unsigned long)i].begin();
+        itr2=answer[(unsigned long)i].end();
         for (;itr1!=itr2;itr1++)
         {
             QString a;
@@ -87,9 +88,9 @@ void MainWindow::btn_ready_clicked()
     this->ui->lable_welcome->setHidden(true);
     this->ui->groupBox_choice->setVisible(true);
     aboard(timenow->bank_left,0,*choice);
-    for (int i=0;i<choice->size();i++)
+    for (int i=0;(unsigned long)i<choice->size();i++)
     {
-        QString s=QString::number((*choice)[i].goodman)+"个传教士与"+QString::number((*choice)[i].wild)+"个野人  "+"划船到对岸";
+        QString s=QString::number((*choice)[(unsigned long)i].goodman)+"个传教士与"+QString::number((*choice)[(unsigned long)i].wild)+"个野人  "+"划船到对岸";
         this->ui->listWidget_choice->addItem(s);
     }
     left_good.push_back(this->ui->label_left_goodman);
@@ -104,7 +105,7 @@ void MainWindow::btn_ready_clicked()
     right_wild.push_back(this->ui->label_right_wild);
     right_wild.push_back(this->ui->label_right_wild_2);
     right_wild.push_back(this->ui->label_right_wild_3);
-    for (int i=0;i<3;i++) {
+    for (unsigned long i=0;i<3;i++) {
         right_good[i]->setHidden(true);
         right_wild[i]->setHidden(true);
     }
@@ -112,46 +113,46 @@ void MainWindow::btn_ready_clicked()
 
 void MainWindow::choice_selected(int a)
 {
-    if((*choice)[a].boat_direction==0)
+    if((*choice)[(unsigned long)a].boat_direction==0)
     {
-    timenow->bank_left.goodman=timenow->bank_left.goodman-(*choice)[a].goodman;
-    timenow->bank_left.wild= timenow->bank_left.wild - (*choice)[a].wild;
-    timenow->bank_right.goodman=timenow->bank_right.goodman+(*choice)[a].goodman;
-    timenow->bank_right.wild= timenow->bank_right.wild + (*choice)[a].wild;
+    timenow->bank_left.goodman=timenow->bank_left.goodman-(*choice)[(unsigned long)a].goodman;
+    timenow->bank_left.wild= timenow->bank_left.wild - (*choice)[(unsigned long)a].wild;
+    timenow->bank_right.goodman=timenow->bank_right.goodman+(*choice)[(unsigned long)a].goodman;
+    timenow->bank_right.wild= timenow->bank_right.wild + (*choice)[(unsigned long)a].wild;
     timenow->boat=1;
 
     move_0->start();
     }
     else
     {
-        timenow->bank_left.goodman=timenow->bank_left.goodman+(*choice)[a].goodman;
-        timenow->bank_left.wild= timenow->bank_left.wild + (*choice)[a].wild;
-        timenow->bank_right.goodman=timenow->bank_right.goodman-(*choice)[a].goodman;
-        timenow->bank_right.wild= timenow->bank_right.wild - (*choice)[a].wild;
+        timenow->bank_left.goodman=timenow->bank_left.goodman+(*choice)[(unsigned long)a].goodman;
+        timenow->bank_left.wild= timenow->bank_left.wild + (*choice)[(unsigned long)a].wild;
+        timenow->bank_right.goodman=timenow->bank_right.goodman-(*choice)[(unsigned long)a].goodman;
+        timenow->bank_right.wild= timenow->bank_right.wild - (*choice)[(unsigned long)a].wild;
         timenow->boat=0;
         move_1->start();
     }
-    for (int i=0;i<3;i++) {
+    for (unsigned long i=0;i<3;i++) {
         left_good[i]->setHidden(true);
         left_wild[i]->setHidden(true);
         right_good[i]->setHidden(true);
         right_wild[i]->setHidden(true);
     }
     for (int i=0;i<timenow->bank_left.goodman;i++) {
-        left_good[i]->setVisible(true);
+        left_good[(unsigned long)i]->setVisible(true);
     }
     for (int i=0;i<timenow->bank_left.wild;i++) {
-        left_wild[i]->setVisible(true);
+        left_wild[(unsigned long)i]->setVisible(true);
     }
     for (int i=0;i<timenow->bank_right.goodman;i++) {
-        right_good[i]->setVisible(true);
+        right_good[(unsigned long)i]->setVisible(true);
     }
     for (int i=0;i<timenow->bank_right.wild;i++) {
-        right_wild[i]->setVisible(true);
+        right_wild[(unsigned long)i]->setVisible(true);
     }
     if(timenow->bank_left.goodman==0&&timenow->bank_left.wild==0)
     {
-        QMessageBox::information(NULL, "过河成功", "传教士和野人都已经到达河对岸");
+        QMessageBox::information(nullptr, "过河成功", "传教士和野人都已经到达河对岸");
         this->ui->listWidget_choice->setDisabled(true);
     }
     else if ((timenow->bank_left.goodman>=timenow->bank_left.wild||timenow->bank_left.goodman==0)&&(timenow->bank_right.goodman>=timenow->bank_right.wild||timenow->bank_right.goodman==0))
@@ -169,15 +170,15 @@ void MainWindow::choice_selected(int a)
             aboard(timenow->bank_right,timenow->boat,*choice);
             d="划船回来";
         }
-        int count=choice->size();
-        for (int i=0;i<count;i++) {
+        unsigned long count=choice->size();
+        for (unsigned long i=0;i<count;i++) {
             QString s=QString::number((*choice)[i].goodman)+"个传教士与"+QString::number((*choice)[i].wild)+"个野人  "+d;
             this->ui->listWidget_choice->addItem(s);
         }
     }
     else
     {
-        QMessageBox::information(NULL, "过河失败", "有传教士被吃了");
+        QMessageBox::information(nullptr, "过河失败", "有传教士被吃了");
         this->ui->listWidget_choice->setDisabled(true);
     }
 }
@@ -194,11 +195,11 @@ void MainWindow::choice_selected(int a)
         timenow=new Time(3,3,0,0,0);
         this->ui->listWidget_choice->clear();
         aboard(timenow->bank_left,0,*choice);
-        for (int i=0;i<choice->size();i++) {
+        for (unsigned long i=0;i<choice->size();i++) {
             QString s=QString::number((*choice)[i].goodman)+"个传教士与"+QString::number((*choice)[i].wild)+"个野人  "+"划船到对岸";
             this->ui->listWidget_choice->addItem(s);
         }
-        for (int i=0;i<3;i++) {
+        for (unsigned long i=0;i<3;i++) {
             left_good[i]->setVisible(true);
             left_wild[i]->setVisible(true);
             right_good[i]->setHidden(true);
