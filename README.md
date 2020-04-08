@@ -12,12 +12,24 @@ A simple Qt application for The Missionaries and Cannibals Problem
 
 ***
 
-![娱乐模式](./screenshots/2.png)
+![关于](./screenshots/2.png)
 
 ***
 
-![过河失败](./screenshots/3.png)
+![欢迎页](./screenshots/3.png)
 
 ***
 
-![过河成功](./screenshots/4.png)
+![娱乐模式](./screenshots/4.png)
+
+***
+
+![过河失败](./screenshots/5.png)
+
+***
+
+![过河成功](./screenshots/6.png)
+
+***
+
+![历史记录](./screenshots/7.png)
