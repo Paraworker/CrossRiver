@@ -8,28 +8,32 @@ A simple Qt application for The Missionaries and Cannibals Problem
 
 求出所有的过河方式
 ## 截图
-![普通模式](./screenshots/1.png)
+![选择方案](./screenshots/1.png)
 
 ***
 
-![关于](./screenshots/2.png)
+![方案详情](./screenshots/2.png)
 
 ***
 
-![欢迎页](./screenshots/3.png)
+![关于](./screenshots/3.png)
 
 ***
 
-![娱乐模式](./screenshots/4.png)
+![欢迎页](./screenshots/4.png)
 
 ***
 
-![过河失败](./screenshots/5.png)
+![娱乐模式](./screenshots/5.png)
 
 ***
 
-![过河成功](./screenshots/6.png)
+![过河失败](./screenshots/6.png)
 
 ***
 
-![历史记录](./screenshots/7.png)
+![过河成功](./screenshots/7.png)
+
+***
+
+![历史记录](./screenshots/8.png)
