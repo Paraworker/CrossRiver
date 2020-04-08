@@ -3,6 +3,7 @@
 #include "crossriver.h"
 #include"introwindow.h"
 #include"historywindow.h"
+#include"wayswindow.h"
 #include <vector>
 #include <QString>
 #include <QMessageBox>
@@ -35,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     move_1->setEasingCurve(QEasingCurve::InOutQuad);
     choice=new std::vector<Cross>;
     timenow=new Time(3,3,0,0,0);
+    answer = nullptr;
 }
 
 MainWindow::~MainWindow()
@@ -49,25 +51,17 @@ MainWindow::~MainWindow()
 void MainWindow::btn_start_clicked()
 {
     this->ui->listWidget->clear();
-    std::vector<std::vector<Cross> > answer;
-    solution(answer);
-    int ways=(int)answer.size();
+    if(answer != nullptr)
+    {
+        delete answer;
+        answer = nullptr;
+    }
+    answer = new std::vector<std::vector<Cross> >;
+    solution(*answer);
+    int ways=(int)(*answer).size();
     for (int i=0;i<ways;i++)
     {
         this->ui->listWidget->addItem("第"+QString::number(i+1)+"种方案");
-        std::vector<Cross>::iterator itr1,itr2;
-        itr1=answer[(unsigned long)i].begin();
-        itr2=answer[(unsigned long)i].end();
-        for (;itr1!=itr2;itr1++)
-        {
-            QString a;
-            if(itr1->boat_direction==0)
-                a="划船到对岸";
-            else
-                a="划船回来";
-            QString s=QString::number(itr1->goodman)+"个传教士与"+QString::number(itr1->wild)+"个野人  "+a;
-            this->ui->listWidget->addItem(s);
-        }
     }
    this->ui->btn_start->setDisabled(true);
    this->ui->btn_start->setText("过河结束");
@@ -233,3 +227,23 @@ void MainWindow::btn_history_clicked()
     h.exec();
 }
 
+
+void MainWindow::on_listWidget_clicked(const QModelIndex &index)
+{
+    int cur = this->ui->listWidget->currentRow();
+    wayswindow w1;
+    std::vector<Cross>::iterator itr1,itr2;
+    itr1=(*answer)[(unsigned long)cur].begin();
+    itr2=(*answer)[(unsigned long)cur].end();
+    for (;itr1!=itr2;itr1++)
+    {
+        QString a;
+        if(itr1->boat_direction==0)
+            a="划船到对岸";
+        else
+            a="划船回来";
+        QString s=QString::number(itr1->goodman)+"个传教士与"+QString::number(itr1->wild)+"个野人  "+a;
+        w1.add(s);
+    }
+    w1.exec();
+}

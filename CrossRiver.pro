@@ -20,18 +20,21 @@ SOURCES += \
     historywindow.cpp \
     introwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    wayswindow.cpp
 
 HEADERS += \
     crossriver.h \
     historywindow.h \
     introwindow.h \
-    mainwindow.h
+    mainwindow.h \
+    wayswindow.h
 
 FORMS += \
     historywindow.ui \
     introwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    wayswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

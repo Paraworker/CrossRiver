@@ -29,8 +29,11 @@ private slots:
     void btn_about_clicked();
     void btn_history_clicked();
 
+    void on_listWidget_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
+    std::vector<std::vector<Cross> > *answer;
     std::vector<Cross>* choice;
     Time* timenow;      //当前状态 用于娱乐模式
     std::vector<QString> history;       //储存历史记录 用于娱乐模式
