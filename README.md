@@ -1,5 +1,6 @@
 # CrossRiver
 A simple Qt application for The Missionaries and Cannibals Problem
+With a animation for teaching
 ## 野人过河问题
 在河的左岸有三个传教士和三个野人，传教士们想用这条船将所有的成员运到河的右岸，但是受到以下条件的限制：
 1. 一条船最多只能装下两个人
