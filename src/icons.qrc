@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pics/btn_history_icon.png</file>
+        <file>pics/goodman.png</file>
+        <file>pics/sailboat.png</file>
+        <file>pics/wild.png</file>
+    </qresource>
+</RCC>
